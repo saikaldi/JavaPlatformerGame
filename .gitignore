@@ -1,0 +1,67 @@
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.iws
+out/
+.idea_modules/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Java build files
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs and debugging
+*.log
+hs_err_pid*
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+
+# Maven specific
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle specific
+.gradle/
+build/
+!gradle-wrapper.jar
+
+# Eclipse-specific (if migrating from Eclipse)
+.settings/
+.classpath
+.project
+.buildpath
+
+# Package manager (e.g., yarn.lock)
+.yarn/
+
+# Generated files
+gen/
+*.generated.*
+
+# Miscellaneous
+*.gz
+*.zip
+*.tar
+*.tgz
+*.bak
+*.old
+*.backup
+*.orig
+*.rej
+
+# JetBrains specific
+# Covers .idea/ and .idea_modules/, already included above but kept here for clarity
+.idea/
+.idea_modules/
