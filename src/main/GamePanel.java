@@ -121,6 +121,11 @@ public class GamePanel extends JPanel {
         }
     }
 
+    public void updateGame(){
+        setAnimation();
+        updateAnimationTick();
+        updatePos();
+    }
 
 
 
@@ -129,9 +134,6 @@ public class GamePanel extends JPanel {
 //        JComponent is the superclass of JPanel
 //        public class JPanel extends JComponent implements Accessible
         super.paintComponent(g);
-        setAnimation();
-        updateAnimationTick();
-        updatePos();
         g.drawImage(animations[playerAction][aniIndex], (int)xDelta, (int)yDelta,128, 80, null);
     }
 

@@ -3,8 +3,10 @@ package main;
 public class Game implements Runnable {
     private GamePanel gamePanel;
     private GameWindow gameWindow;
+    //gameThread: A thread to run the game loop independently of the main application thread.
     private Thread gameThread;
     private final int FPS_SET = 120;
+    private final int UPS_SET = 200; // UPS: controls how often the game state is updated
     //created instance of the Game class without storing refernce to it
     public Game(){
         gamePanel = new GamePanel();
@@ -21,37 +23,57 @@ public class Game implements Runnable {
         gameThread.start();
     }
 
+    public void update(){
+        gamePanel.updateGame();
+    }
+
+
     @Override
     public void run() {
-//        TimePerFrame calculates how much time (in nanoseconds) each frame should take to achieve that
-        double TimePerFrame = 1000000000.0 / FPS_SET;
-//        LastFrame keeps track of the time when the last frame was displayed, so we know when the next frame should be drawn.
-        long lastFrame = System.nanoTime();
-//        now represents the current time at any given point in the game loop, fetched with System.nanoTime().
-        long now = System.nanoTime();
+//      TimePerFrame calculates how much time (in nanoseconds) each frame should take to achieve that FPS.
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        double timePerUpdate = 1000000000.0 / UPS_SET;
+
+//        The time (in nanoseconds) when the loop started.
+        long previousTime = System.nanoTime();
+
+//        frames and updates: Counters to track frames rendered and updates performed.
         int frames = 0;
+        int updates = 0;
         long lastCheck = System.nanoTime();
 
-        while(true){
-//            gets the current time in nanoseconds
-            now = System.nanoTime();
-//            This condition checks if the differnece between the current time(now) and the time of the last frame(lastFrame)
-//            is greater than ot equal to timePerFrame
-//            if this is true, it means enough time has passed since the last frame, so its time to repaint the screen
-            if(now - lastCheck > TimePerFrame){
-//                it triggers the component to redraw itself, updating the visual on the screen
-                gamePanel.repaint();
-//                updating the lastCheck to the current time so that the timer is reset for the next frame
-                lastCheck = now;
-                frames++;
+//        Track how much time has passed since the last update and frame render.
+        double deltaU = 0;
+        double deltaF = 0;
+
+        while (true) {
+            long currentTime = System.nanoTime();
+
+            deltaU += (currentTime - previousTime) / timePerUpdate;
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
+
+//            If enough time has passed for an update (deltaU >= 1), the game state is updated, and the updates counter is incremented.
+            if (deltaU >= 1) {
+                update();
+                updates++;
+                deltaU--;
             }
-//            if one second have passed since the last FPS, we do a new FPS check
-//            save the last FPS check as the lastFPS check and request
-            if(System.currentTimeMillis()-lastFrame > 1000){
+//            If enough time has passed for a frame render (deltaF >= 1), the GamePanel is repainted, and the frames counter is incremented.
+            if (deltaF >= 1) {
+                gamePanel.repaint();
+                frames++;
+                deltaF--;
+            }
+
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: "+frames);
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
                 frames = 0;
+                updates = 0;
+
             }
         }
     }
 }
+
