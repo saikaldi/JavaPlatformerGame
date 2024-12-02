@@ -10,7 +10,6 @@ public class Game implements Runnable {
         gamePanel = new GamePanel();
         gameWindow = new GameWindow(gamePanel);
 
-
         // When you call gamePanel.requestFocus(), you're asking the gamePanel to gain focus so that
         // it can start receiving input events like keyboard presses or mouse clicks.
         gamePanel.requestFocus();
@@ -29,9 +28,7 @@ public class Game implements Runnable {
 //        LastFrame keeps track of the time when the last frame was displayed, so we know when the next frame should be drawn.
         long lastFrame = System.nanoTime();
 //        now represents the current time at any given point in the game loop, fetched with System.nanoTime().
-//
         long now = System.nanoTime();
-
         int frames = 0;
         long lastCheck = System.nanoTime();
 
@@ -56,6 +53,5 @@ public class Game implements Runnable {
                 frames = 0;
             }
         }
-
     }
 }

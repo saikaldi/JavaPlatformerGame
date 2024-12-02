@@ -8,11 +8,15 @@ public class GameWindow {
 
         // Create a JFrame instance
         jframe = new JFrame();
-        jframe.setSize(800, 600);
         // On click close exit the program
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.add(gamePanel);
+        // Bound the window in center of the screen
         jframe.setResizable(false);
+        jframe.setLocationRelativeTo(null);
+        // If you add components with set preferred sizes or minimum/maximum sizes, calling pack()
+        // ensures the JFrame respects those sizes and sizes itself accordingly.
+        jframe.pack();
         // Window to be visible
         jframe.setVisible(true);
     }
