@@ -5,6 +5,7 @@ public class GameWindow {
     // jframe is declared as a private instance variable, so it can be used across methods within the class.
     private JFrame jframe;
     public GameWindow(GamePanel gamePanel) {
+
         // Create a JFrame instance
         jframe = new JFrame();
         jframe.setSize(800, 600);

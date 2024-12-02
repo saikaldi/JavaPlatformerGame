@@ -1,12 +1,8 @@
 package inputs;
-
 import main.GamePanel;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 public class KeyboardInputs implements KeyListener {
-
     // Stores a reference to the GamePanel object to send updates about direction or movement.
     private GamePanel gamePanel;
 
@@ -17,10 +13,7 @@ public class KeyboardInputs implements KeyListener {
         this.gamePanel = gamePanel;
     }
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
+    public void keyTyped(KeyEvent e) {}
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {  // getKeyCode() that returns an integer representing the key code of the pressed key
@@ -36,13 +29,9 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_A:
                 gamePanel.changeXDelta(-5);
                 break;
-
-
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) {}
 }
